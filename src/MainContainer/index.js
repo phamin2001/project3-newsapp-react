@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import Login from '../Login';
+import Registration from '../Registration';
 
 class MainContainer extends Component {
+    constructor(){
+        super();
 
+        this.state = {
+            loggedIn: false
+        }
+    }
 
-    returrn(){
+    handleLogin = () => {
+
+    }
+
+    render(){
 
         return(
             <div>
-                <h1>I'm MainContainer</h1>
+                {this.state.loggedIn ? <Registration loggedIn = {this.state.loggedIn} /> : 
+                                       <Login handleLogin = {this.handleLogin} />} 
             </div>
         )
     }
