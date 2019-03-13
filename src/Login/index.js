@@ -31,13 +31,12 @@ class Login extends Component {
 
             if(!loginResponse.ok) {
                 throw new Error(loginResponse.statusText);
-            } else {
-                console.log('Password is wrong');
             }
+
             const parsedLoginResponse = await loginResponse.json();
 
             if(parsedLoginResponse.status === 200) {
-                this.props.handleLogin.bind(null, parsedLoginResponse.username, parsedLoginResponse.userID);
+                this.props.handleLogin(parsedLoginResponse.username, parsedLoginResponse.userId);
             }
         } catch (err) {
             console.log(err);

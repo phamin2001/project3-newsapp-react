@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import Login from '../Login';
-import Registration from '../Registration';
+import User from '../User';
 
 class MainContainer extends Component {
     constructor(){
         super();
 
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            username: '',
+            userId: ''
         }
     }
 
-    handleLogin = () => {
-
+    handleLogin = (loggedInUsername, loggedInUserId) => {
+        this.setState({
+            loggedIn: true,
+            username: loggedInUsername,
+            userId:   loggedInUserId  
+        })
     }
 
     render(){
 
         return(
             <div>
-                {this.state.loggedIn ? <Registration loggedIn = {this.state.loggedIn} /> : 
-                                       <Login handleLogin = {this.handleLogin} />} 
+                {!this.state.loggedIn ? <Login handleLogin = {this.handleLogin} /> : <User loggedInUser = {this.state}/> } 
             </div>
         )
     }
