@@ -13,20 +13,22 @@ class MainContainer extends Component {
         }
     }
 
-    handleLogin = (loggedInUsername, loggedInUserId) => {
-        this.setState({
-            loggedIn: true,
-            username: loggedInUsername,
-            userId:   loggedInUserId  
-        })
+    handleLogin = (loggedInUserInfo) => {
+        console.log('in handleLogin', loggedInUserInfo);
+        // this.setState({
+        //     loggedIn: true,
+        //     username: loggedInUsername,
+        //     userId:   loggedInUserId  
+        // })
     }
 
     render(){
 
         return(
             <div>
-                {!this.state.loggedIn ? <AuthenticationGateway handleLogin = {this.handleLogin} /> :
-                <User loggedInUser = {this.state}/> } 
+                <User loggedInUser = {this.state} />
+                {/* {!this.state.loggedIn ? <AuthenticationGateway handleLogin = {this.handleLogin} /> :
+                <User loggedInUser = {this.state}/> }  */}
             </div>
         )
     }
