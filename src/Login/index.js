@@ -5,8 +5,10 @@ class Login extends Component {
         super();
 
         this.state = {
-            username: '',
-            password: ''
+            username:    '',
+            password:    '',
+            email:       '',
+            displayName: ''
         }
     }
 
@@ -16,7 +18,7 @@ class Login extends Component {
         });
     }
 
-    handleSubmit = async (e) => {
+    handleLoginSubmit = async (e) => {
         e.preventDefault();
 
         try {
@@ -24,7 +26,7 @@ class Login extends Component {
                 method:      'POST',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),
-                headers:{
+                headers: {
                     'Content-type': 'application/json'
                 }
             });
@@ -44,19 +46,70 @@ class Login extends Component {
         }
     }
 
+    handleRegisterSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const registerResponse = await fetch("http://localhost:9000/users/", {
+                method:      'POST',
+                credentials: 'include',
+                body:        JSON.stringify(this.state),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+
+            if(!registerResponse.ok) {
+                throw new Error(registerResponse.statusText);
+            }
+
+            console.log(registerResponse, 'registerResponse');
+
+            const parsedRegisterResponse = await registerResponse.json();
+            console.log(parsedRegisterResponse, 'parsed register');
+        
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Username: 
-                    <input type="text" name="username" placeholder="Username" onChange={this.handleInput}/>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
-                </label>
-                <input type="Submit" />
-            </form>
+            <div>
+                <form onSubmit={this.handleLoginSubmit}>
+                    <h1>Login</h1>
+                    <label>
+                        Username: 
+                        <input type="text" name="username" placeholder="Username" onChange={this.handleInput}/>
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
+                    </label>
+                    <input type="Submit" />
+                </form><br/>
+                {/* <form onSubmit={this.handleRegisterSubmit}>
+                    <h1>Create User</h1>
+                    <label>
+                        Username: 
+                        <input type="text" name="username" placeholder="Username" onChange={this.handleInput}/>
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email" placeholder="Eamil" onChange={this.handleInput}/>
+                    </label>
+                    <label>
+                        DisplayName:
+                        <input type="text" name="displayname" placeholder="DisplayName" onChange={this.handleInput}/>
+                    </label>
+                    <input type="Submit" />
+                </form><br/> */}
+            </div>
         )
     }
 }

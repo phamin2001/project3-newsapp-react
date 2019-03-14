@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from '../Login';
 import User from '../User';
+import AuthenticationGateway from '../AuthenticationGateway';
 
 class MainContainer extends Component {
     constructor(){
@@ -25,7 +25,8 @@ class MainContainer extends Component {
 
         return(
             <div>
-                {!this.state.loggedIn ? <Login handleLogin = {this.handleLogin} /> : <User loggedInUser = {this.state}/> } 
+                {!this.state.loggedIn ? <AuthenticationGateway handleLogin = {this.handleLogin} /> :
+                <User loggedInUser = {this.state}/> } 
             </div>
         )
     }
