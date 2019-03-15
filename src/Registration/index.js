@@ -1,35 +1,55 @@
 import React, { Component } from 'react';
 
 class Registration extends Component {
+    constructor() {
+        super();
 
-    // handleRegisterSubmit = async (e) => {
-    //     e.preventDefault();
+        this.state = {
+            username:    '',
+            password:    '',
+            email:       '',
+            displayName: ''
+        }
+    }
 
-    //     try {
-    //         const registerResponse = await fetch("http://localhost:9000/users/", {
-    //             method:      'POST',
-    //             credentials: 'include',
-    //             body:        JSON.stringify(this.state),
-    //             headers: {
-    //                 'Content-type': 'application/json'
-    //             }
-    //         });
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
 
-    //         if(!registerResponse.ok) {
-    //             throw new Error(registerResponse.statusText);
-    //         }
+    handleRegisterSubmit = async (e) => {
+        e.preventDefault();
 
-    //         console.log(registerResponse, 'registerResponse');
+        try {
+            const registerResponse = await fetch("http://localhost:9000/users/", {
+                method:      'POST',
+                credentials: 'include',
+                body:        JSON.stringify(this.state),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
 
-    //         const parsedRegisterResponse = await registerResponse.json();
-    //         console.log(parsedRegisterResponse, 'parsed register');
+            if(!registerResponse.ok) {
+                throw new Error(registerResponse.statusText);
+            }
+
+            const parsedRegisterResponse = await registerResponse.json();
+
+            if(parsedRegisterResponse.status === 200) {
+                this.props.handleLogin(parsedRegisterResponse.username, parsedRegisterResponse.userId);
+                this.props.history.push('/MainContainer');
+            } else {
+                alert("Username exists or Credintional is wrong. Try again.");
+                this.props.history.push('/');
+            }
         
-    //     } catch (err) {
-    //         console.log(err);
-    //         return err;
-    //     }
-    // }
-
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
 
     render() {
         return(

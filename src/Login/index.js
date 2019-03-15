@@ -39,6 +39,9 @@ class Login extends Component {
             if(parsedLoginResponse.status === 200) {
                 this.props.handleLogin(parsedLoginResponse.username, parsedLoginResponse.userId);
                 this.props.history.push('/MainContainer');
+            } else {
+                alert("Something wrong, try again.");
+                window.location.reload();
             }
         } catch (err) {
             console.log(err);

@@ -41,7 +41,9 @@ class App extends Component {
           <Route exact path = "/login"    
                        render = { (props) => ( <Login {...props}
                        handleLogin = {this.handleLogin} />)} />
-          <Route exant path = "/register" component     = { Registration } />
+          <Route exant path = "/register" 
+                       render = { (props) => ( <Registration {...props}
+                       handleLogin = {this.handleLogin} />)} />
           <Route exact path = "/mainContainer"
                       render = { (props) => ( <MainContainer {...props}
                       loggedInUserInfo = {this.state} /> )} />
