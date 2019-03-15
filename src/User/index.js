@@ -6,8 +6,8 @@ class User extends Component {
         super(props);
 
         this.state = {
-            topics: [],
-            userId: props.loggedInUser.userId
+            username: '',
+            topics:   []            
         }
     }
 
@@ -16,9 +16,8 @@ class User extends Component {
     }
 
     getUserTopics = async () => {
-        
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.state.userId, {
+            const response = await fetch('http://localhost:9000/users/' + this.props.userId, {
                 method:      'GET',
                 credentials: 'include'
             });
@@ -28,9 +27,9 @@ class User extends Component {
             }
 
             const userParsed = await response.json();
-            console.log(userParsed, 'parsed topic')
             
             this.setState({
+                username: userParsed.user.username,
                 topics: userParsed.user.topics
             })            
         } catch (err) {
@@ -47,14 +46,11 @@ class User extends Component {
 
     }
  
-
-    render() {
-        console.log(this.state.topics, 'in user')
-       
+    render() {       
         return(
             <div>
                 <label>
-                    Welcome: {this.props.loggedInUser.username}
+                    Welcome: {this.state.username}
                 </label><br/>
                 <label>
                     All Topics: <TopicsList topics = {this.state.topics} />
