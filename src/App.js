@@ -5,6 +5,7 @@ import Login from './Login';
 import { Route, Switch } from 'react-router-dom';
 import Registration from './Registration';
 import MainContainer from './MainContainer';
+import EditUser from './EditUser';
 
 const My404 = () => {
   return (
@@ -32,8 +33,6 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.state,'state in App');
-
     return (
       <main>
         <Switch>
@@ -44,9 +43,10 @@ class App extends Component {
           <Route exant path = "/register" 
                        render = { (props) => ( <Registration {...props}
                        handleLogin = {this.handleLogin} />)} />
-          <Route exact path = "/mainContainer"
+          <Route exact path = "/userInfo"
                       render = { (props) => ( <MainContainer {...props}
                       loggedInUserInfo = {this.state} /> )} />
+          <Route exact path = "/user/edit"     component     = { EditUser } />
           <Route component={ My404 }/>
         </Switch>
       </main> 

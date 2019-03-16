@@ -50,10 +50,14 @@ class User extends Component {
         return(
             <div>
                 <label>
-                    Welcome: {this.state.username}
+                    <h2>Welcome: {this.state.username}</h2>
                 </label><br/>
                 <label>
-                    All Topics: <TopicsList topics = {this.state.topics} />
+                    <button name = "edit" onClick = {() => this.props.history.push('/user/edit')}>Edit Your Profile</button><br/>
+                    <button name = "delete">Delete Your Profile</button><br/>
+                </label>
+                <label>
+                    <h3>All Topics: <TopicsList topics = {this.state.topics} /></h3>
                 </label>
             </div>
         )
