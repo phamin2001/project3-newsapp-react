@@ -27,8 +27,8 @@ class App extends Component {
 
   handleLogin = (loggedInUsername, loggedInUserId) => {
     this.setState({
-      username:       loggedInUsername,
-      loggedInUserId: loggedInUserId
+      username: loggedInUsername,
+      userId:   loggedInUserId
     })
   }
 

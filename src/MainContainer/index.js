@@ -4,10 +4,9 @@ import User from '../User';
 class MainContainer extends Component {
    
     render(){
-       
         return(
             <div>
-                <User loggedInUser = {this.props} />
+                <User userInfo = {this.props.loggedInUserInfo} />
             </div>
         )
     }
