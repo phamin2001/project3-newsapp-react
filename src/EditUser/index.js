@@ -3,13 +3,13 @@ import React,{ Component } from 'react';
 class Edit extends Component {
 
     render() {
-        console.log(this.props, 'in edit')
+        console.log(this.props.location.state.userInfo, 'in edit')
         return(
             <form onSubmit={this.handleRegisterSubmit}>
             <h1>Create User</h1>
             <label>
                 Username: 
-                <input type="text" name="username" placeholder= {this.props.username} onChange={this.handleInput}/>
+                <input type="text" name="username" placeholder= {this.props.location.state.userInfo.username} onChange={this.handleInput}/>
             </label>
             <label>
                 Email:

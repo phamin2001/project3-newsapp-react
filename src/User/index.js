@@ -70,7 +70,7 @@ class User extends Component {
                 <label>
                     <button name = "edit" onClick = {() => this.props.history.push({
                                                      pathname: '/user/edit', 
-                                                     userInfo: this.state
+                                                     state: {userInfo: this.state}
                                                      })
                                                     } > Edit Your Profile</button><br/>
                     <button name = "delete" onClick = {this.deleteUser} >Delete Your Profile</button><br/>
