@@ -64,7 +64,6 @@ class User extends Component {
     }
 
     render() {  
-        console.log(this.state.topics, 'in user state') 
         return(
             <div>
                 <label>

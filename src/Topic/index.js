@@ -1,62 +1,85 @@
 import React, { Component } from 'react';
+import { throws } from 'assert';
 
 class Topic extends Component {
-    // constructor() {
-    //     super();
+    constructor() {
+        super();
 
-    //     this.stae = {
-    //         title: '',
-    //         writer: '',
-    //         date: ''
-    //     }
-    // }
-
-    // handleInput = (e) => {
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-
-    // handleEditSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const 
-        
-    //     } catch (err) {
-    //         console.log(err);
-    //         return err;
-    //     }
-    // }
-
-    deleteTopic = async (e) => {
-
+        this.state = {
+            title:  '',
+            writer: '',
+            date:   '',
+            id:     ''
+        }
     }
 
-  
+    componentDidMount = () => {
+        this.getTopic();
+    }
+
+    getTopic = async () => {
+        try {
+            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.location.state.topicId, {
+                method:      'GET',
+                credentials: 'include'
+            })
+
+            if(!response.ok) {
+                throw Error(response.statusText);
+            }
+
+            const parsedTopicResponse = await response.json();
+            this.setState({
+                title:  parsedTopicResponse.topic.title,
+                writer: parsedTopicResponse.topic.writer,
+                date:   parsedTopicResponse.topic.date,
+                id:     parsedTopicResponse.topic._id
+            })
+
+            this.props.handleEditedTopic(parsedTopicResponse.topic);
+
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
+    deleteTopic = async (e) => {
+        try {
+            const deletedTopicResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.state.id, {
+                method:      'DELETE',
+                credentials: 'include'
+            })
+
+            if(!deletedTopicResponse.ok) {
+                throw Error(deletedTopicResponse.statusText);
+            }
+
+            const parsedDeletedTopic = await deletedTopicResponse.json();
+
+            if(parsedDeletedTopic.status === 200) {
+                alert('You delete a topic');
+                this.props.history.push('/user');
+            }
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
     render() {
         return(
             <div>
-                <h1>Topic: {this.props.location.state.topicTitle}</h1>
-                <div><button name = 'edit'    onClick={() => this.props.history.push('/user/edittopic')}>Edit Topic</button></div>
-                <div><button name = 'delete'  onClick={this.deleteTopic}>Delete Topic</button></div>
+                <h1>Topic: {this.state.title}</h1>
+                <label>
+                    <h2>Writer: {this.state.writer}</h2>
+                </label>
+                <label>
+                    <h2>Date of Publish: {this.state.date}</h2>
+                </label>
+                <div><button name='edit' onClick={() => this.props.history.push('/user/edittopic')}>Edit</button></div>
+                <div><button name='delete' onClick={this.deleteTopic}>Delete</button></div>
             </div>
-            // <form onSubmit={this.handleEditSubmit}>
-            //     <h1>Topic: {this.props.location.state.topicTitle}</h1>
-            //     <label>
-            //         Title: 
-            //         <input type='text' name='title' placeholder= {this.props.location.state.topicTitle} onChange={this.handleInput}/>
-            //     </label>
-            //     <label>
-            //         Writer:
-            //         <input type='text' name='writer' placeholder= {this.props.location.state.topicWriter} onChange={this.handleInput}/>
-            //     </label>
-            //     <label>
-            //         Date of Publish:
-            //         <input type='text' name='date' placeholder= {this.props.location.state.topicDate} onChange={this.handleInput}/>
-            //     </label>
-            //     <input type='Submit' />
-            // </form>
         )
     }
 }
