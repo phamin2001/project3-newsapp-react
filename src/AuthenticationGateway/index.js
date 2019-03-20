@@ -10,8 +10,8 @@ class AuthenticationGateway extends Component {
                     <h1>Welcome to News App</h1>
                     <h2>Please Login or Create Your Profile:</h2>
                 </label>
-                <div><button name = "login"    onClick={() => this.props.history.push('/login')}>Login</button></div>
-                <div><button name = "register" onClick={() => this.props.history.push('register')}>Create User</button></div>
+                <div><button name = 'login'    onClick={() => this.props.history.push('/login')}>Login</button></div>
+                <div><button name = 'register' onClick={() => this.props.history.push('register')}>Create User</button></div>
             </div>
         )
     }

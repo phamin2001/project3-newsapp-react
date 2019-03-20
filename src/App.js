@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
 import './App.css';
+import React, { Component }  from 'react';
+import { Route, Switch }     from 'react-router-dom';
+import User                  from './User';
 import AuthenticationGateway from './AuthenticationGateway';
-import Login from './Login';
-import { Route, Switch } from 'react-router-dom';
-import Registration from './Registration';
-import MainContainer from './MainContainer';
-import EditUser from './EditUser';
+import Login                 from './Login';
+import Registration          from './Registration';
+import EditUser              from './EditUser';
+import NewTopic              from './NewTopic';
+import Topic                 from './Topic';
+import EditTopic             from './EditTopic';
 
 const My404 = () => {
   return (
@@ -21,7 +24,12 @@ class App extends Component {
 
     this.state = {
       username: '',
-      userId:   ''
+      userId:   '',
+      completeUserInfo: {
+        loggedInUsername:   '',
+        loggedInEmail:      '',
+        loggedInDiplayName: ''
+      }
     }
   }
 
@@ -32,21 +40,60 @@ class App extends Component {
     })
   }
 
+  handleCompleteUserInfo = (userParsed) => {
+    if(userParsed.username != this.username) {
+      this.setState({username: userParsed.username});
+    }
+
+    this.setState({
+      completeUserInfo: {
+        loggedInUsername:    userParsed.username,
+        loggedInEmail:       userParsed.userEmail,
+        logeedInDisplayName: userParsed.userDisplayName
+      }
+    });
+  }
+
+  // handleLoggedInUserTopics = (topics) => {
+  //   this.setState({
+  //     completeUserInfo: {
+  //       loggedInTopics: topics
+  //     }
+  //   })
+  // }
+
   render(){
     return (
       <main>
         <Switch>
-          <Route exact path = "/"         component     = { AuthenticationGateway } />
-          <Route exact path = "/login"    
-                       render = { (props) => ( <Login {...props}
-                       handleLogin = {this.handleLogin} />)} />
-          <Route exant path = "/register" 
-                       render = { (props) => ( <Registration {...props}
-                       handleLogin = {this.handleLogin} />)} />
-          <Route exact path = "/userInfo"
-                      render = { (props) => ( <MainContainer {...props}
-                      loggedInUserInfo = {this.state} /> )} />
-          <Route exact path = "/user/edit"     component     = { EditUser } />
+          <Route exact path = '/'         component     = { AuthenticationGateway } />
+          <Route exact path = '/login'    
+                       render      = { (props) => ( <Login {...props}
+                       handleLogin = {this.handleLogin} />)} 
+          />
+          <Route exant path = '/register'
+                       render      = { (props) => ( <Registration {...props}
+                       handleLogin = {this.handleLogin} />)} 
+          />
+          <Route exact path = '/user'
+                       render = { (props) => ( <User {...props}
+                       loggedInUsername         = {this.state.username} 
+                       loggedInUserId           = {this.state.userId}
+                       handleLoggedInUserTopics = {this.handleLoggedInUserTopics}
+                       handleCompleteUserInfo   = {this.handleCompleteUserInfo} /> )} 
+          />
+          <Route exact path = '/user/edit'
+                       render                 = { (props) => ( <EditUser {...props}
+                       loggedInUserId         = {this.state.userId}
+                       completeUserInfo       = {this.state.completeUserInfo} 
+                       handleCompleteUserInfo = {this.handleCompleteUserInfo}  /> )}
+          />
+          <Route exact path = '/user/newtopic'
+                       render         = { (props) => ( <NewTopic {...props}
+                       loggedInUserId = {this.state.userId} /> )} 
+          />
+          <Route exact path = '/user/topic'       component = { Topic } />
+          <Route exact path = '/user/edittopic'   component = { EditTopic } />
           <Route component={ My404 }/>
         </Switch>
       </main> 

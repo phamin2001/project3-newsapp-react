@@ -21,7 +21,7 @@ class Login extends Component {
         e.preventDefault();
 
         try {
-            const loginResponse = await fetch("http://localhost:9000/auths/login", {
+            const loginResponse = await fetch('http://localhost:9000/auths/login', {
                 method:      'POST',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),
@@ -38,9 +38,9 @@ class Login extends Component {
 
             if(parsedLoginResponse.status === 200) {
                 this.props.handleLogin(parsedLoginResponse.username, parsedLoginResponse.userId);
-                this.props.history.push('/userInfo');
+                this.props.history.push('/user');
             } else {
-                alert("Something wrong, try again.");
+                alert('Something wrong, try again.');
                 window.location.reload();
             }
         } catch (err) {
@@ -56,13 +56,13 @@ class Login extends Component {
                     <h1>Login</h1>
                     <label>
                         Username: 
-                        <input type="text" name="username" placeholder="Username" onChange={this.handleInput}/>
+                        <input type='text' name='username' placeholder='Username' onChange={this.handleInput}/>
                     </label>
                     <label>
                         Password:
-                        <input type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
+                        <input type='password' name='password' placeholder='Password' onChange={this.handleInput}/>
                     </label>
-                    <input type="Submit" />
+                    <input type='Submit' />
                 </form><br/>
             </div>
         )
