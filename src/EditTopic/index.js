@@ -21,9 +21,21 @@ class EditTopic extends Component {
         e.preventDefault();
 
         try {
-            const editResponse = await fetch('http://localhost:9000/users' + usrid + '/topics/' + this.props.editedTopic._id, {
-                
-            })
+            const editResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id, {
+                method:      'PUT',
+                credentials: 'include',
+                body:        JSON.stringify(this.state),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+
+            if(!editResponse.ok) {
+                throw Error(editResponse.statusText)
+            }
+
+            const parsedEditResponse = await editResponse.json();
+            this.props.history.push('/user/topic');
             
         } catch (err) {
             console.log(err);
