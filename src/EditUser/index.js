@@ -52,21 +52,21 @@ class Edit extends Component {
     render() {
         return(
             <form onSubmit={this.handleEditSubmit}>
-            <h1>Create User</h1>
-            <label>
-                Username: 
-                <input type='text' name='username' placeholder= {this.props.completeUserInfo.loggedInUsername} onChange={this.handleInput}/>
-            </label>
-            <label>
-                Email:
-                <input type='email' name='email' placeholder= {this.props.completeUserInfo.loggedInEmail} onChange={this.handleInput}/>
-            </label>
-            <label>
-                DisplayName:
-                <input type='text' name='displayname' placeholder= {this.props.completeUserInfo.loggedInDisplayName} onChange={this.handleInput}/>
-            </label>
-            <input type='Submit' />
-        </form>
+                <h1>Edit User</h1>
+                <label>
+                    Username: 
+                    <input type='text' name='username' placeholder= {this.props.completeUserInfo.loggedInUsername} onChange={this.handleInput}/>
+                </label>
+                <label>
+                    Email:
+                    <input type='email' name='email' placeholder= {this.props.completeUserInfo.loggedInEmail} onChange={this.handleInput}/>
+                </label>
+                <label>
+                    DisplayName:
+                    <input type='text' name='displayname' placeholder= {this.props.completeUserInfo.loggedInDisplayName} onChange={this.handleInput}/>
+                </label>
+                <input type='Submit' />
+            </form>
         )
     }
 

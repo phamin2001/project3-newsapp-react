@@ -36,7 +36,7 @@ class EditTopic extends Component {
 
             const parsedEditResponse = await editResponse.json();
             this.props.history.push('/user/topic');
-            
+
         } catch (err) {
             console.log(err);
             return err;            

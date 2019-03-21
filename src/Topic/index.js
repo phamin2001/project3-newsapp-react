@@ -18,17 +18,21 @@ class Topic extends Component {
     }
 
     getTopic = async () => {
+        console.log(this.props.location.state.topicId, 'in getTopic, location');
+        console.log(this.props.editedTopic._id, 'in getTopic, editedTopic.id')
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.location.state.topicId, {
+            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' +
+                                    this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId , {
                 method:      'GET',
                 credentials: 'include'
-            })
+            });
 
             if(!response.ok) {
                 throw Error(response.statusText);
             }
 
             const parsedTopicResponse = await response.json();
+            console.log(parsedTopicResponse, 'parsed topic')
             this.setState({
                 title:  parsedTopicResponse.topic.title,
                 writer: parsedTopicResponse.topic.writer,

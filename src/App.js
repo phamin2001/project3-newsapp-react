@@ -4,8 +4,8 @@ import { Route, Switch }     from 'react-router-dom';
 import User                  from './User';
 import AuthenticationGateway from './AuthenticationGateway';
 import Login                 from './Login';
-import Registration          from './Registration';
 import EditUser              from './EditUser';
+import Registration          from './Registration';
 import NewTopic              from './NewTopic';
 import Topic                 from './Topic';
 import EditTopic             from './EditTopic';
@@ -65,35 +65,35 @@ class App extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path = '/'         component     = { AuthenticationGateway } />
+          <Route exact path        = '/'         component     = { AuthenticationGateway } />
           <Route exact path        = '/login'    
                        render      = { (props) => ( <Login {...props}
                        handleLogin = {this.handleLogin} />)} 
           />
-          <Route exant path = '/register'
+          <Route exant path        = '/register'
                        render      = { (props) => ( <Registration {...props}
-                       handleLogin = {this.handleLogin} />)} 
+                       handleLogin = {this.handleLogin} /> )} 
           />
           <Route exact path                     = '/user'
                        render                   = { (props) => ( <User {...props}
                        loggedInUsername         = {this.state.username} 
                        loggedInUserId           = {this.state.userId}
-                       handleLoggedInUserTopics = {this.handleLoggedInUserTopics}
                        handleCompleteUserInfo   = {this.handleCompleteUserInfo} /> )} 
           />
-          <Route exact path = '/user/edit'
+          <Route exact path                   = '/user/edit'
                        render                 = { (props) => ( <EditUser {...props}
                        loggedInUserId         = {this.state.userId}
                        completeUserInfo       = {this.state.completeUserInfo} 
                        handleCompleteUserInfo = {this.handleCompleteUserInfo}  /> )}
           />
-          <Route exact path = '/user/newtopic'
+          <Route exact path           = '/user/newtopic'
                        render         = { (props) => ( <NewTopic {...props}
                        loggedInUserId = {this.state.userId} /> )} 
           />
           <Route exact path              = '/user/topic'       
                        render            = { (props) => ( <Topic {...props}
                        handleEditedTopic = {this.handleEditedTopic}
+                       editedTopic       = {this.state.editedTopic}
                        loggedInUserId    = {this.state.userId} /> )} 
           />
           <Route exact path              = '/user/edittopic'   
