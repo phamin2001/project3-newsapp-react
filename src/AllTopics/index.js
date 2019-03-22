@@ -35,11 +35,26 @@ class AllTopics extends Component {
         }
     }
 
+    handleChange = (e) => {
+        console.log(e.target.value, 'in handlechange');
+        
+    }
+
     render(){
-        console.log(this.state, 'in alltopic')
+        const allTopicsList = this.state.allTopics.map((topic, i) => {
+            return (
+                <option value={topic._id}>
+                    {topic.title}
+                </option>
+            )
+        });
+   
         return(
             <div>
-                in alltopics
+                <select onChange={this.handleChange}>
+                    <option>Plese Select</option>
+                    {allTopicsList}
+                </select>
             </div>
         )
     }

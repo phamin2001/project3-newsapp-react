@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AllTopics            from '../AllTopics';
+
 
 class NewTopic extends Component {
     constructor(){
@@ -47,6 +49,9 @@ class NewTopic extends Component {
     render() {
         return(
             <div>
+               <div>
+                    <h2>All topics:  <AllTopics /></h2>
+               </div>
                <form onSubmit={this.handleNewTopicSubmit}>
                     <h1>New Topic</h1>
                     <label>

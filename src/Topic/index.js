@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { throws } from 'assert';
+import { Link } from 'react-router-dom';
 
 class Topic extends Component {
     constructor() {
@@ -18,11 +18,10 @@ class Topic extends Component {
     }
 
     getTopic = async () => {
-        console.log(this.props.location.state.topicId, 'in getTopic, location');
-        console.log(this.props.editedTopic._id, 'in getTopic, editedTopic.id')
+        const idToFetch = this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId;
+
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' +
-                                    this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId , {
+            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + idToFetch , {
                 method:      'GET',
                 credentials: 'include'
             });
@@ -32,7 +31,9 @@ class Topic extends Component {
             }
 
             const parsedTopicResponse = await response.json();
+            // const parsedTopicResponse = await response.text();
             console.log(parsedTopicResponse, 'parsed topic')
+
             this.setState({
                 title:  parsedTopicResponse.topic.title,
                 writer: parsedTopicResponse.topic.writer,
@@ -74,6 +75,7 @@ class Topic extends Component {
     render() {
         return(
             <div>
+                <div><Link to='/user/'>Profile</Link></div>
                 <h1>Topic: {this.state.title}</h1>
                 <label>
                     <h2>Writer: {this.state.writer}</h2>
@@ -81,7 +83,7 @@ class Topic extends Component {
                 <label>
                     <h2>Date of Publish: {this.state.date}</h2>
                 </label>
-                <div><button name='edit' onClick={() => this.props.history.push('/user/edittopic')}>Edit</button></div>
+                <div><button name='edit'   onClick={() => this.props.history.push('/user/edittopic')}>Edit</button></div>
                 <div><button name='delete' onClick={this.deleteTopic}>Delete</button></div>
             </div>
         )

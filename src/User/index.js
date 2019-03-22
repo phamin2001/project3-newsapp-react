@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import TopicsList           from '../TopicsList';
-import AllTopics            from '../AllTopics';
-
 
 class User extends Component {
     constructor(props) {
@@ -80,9 +78,6 @@ class User extends Component {
                 <label>
                     <h3>All User Topics: <TopicsList topics = {this.state.topics} /></h3>
                 </label>
-                <div>
-                    <h2>All topics:  <AllTopics /></h2>
-                </div>
                 <label>
                     <h3><button onClick = {() => this.props.history.push('/user/newtopic')}>Add new Topics</button></h3>
                 </label>
