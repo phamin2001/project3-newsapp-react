@@ -62,10 +62,14 @@ class User extends Component {
         }
     }
 
+    handleCurrentTopic = (selectedTopic) => {
+        this.props.handleEditedTopic(selectedTopic);
+    }
+
     render() {  
         const userTopicsList = this.state.topics.map((topic, i) => {
             return (
-                <li value={topic._id}>
+                <li onClick = {this.handleCurrentTopic.bind(null, topic)}>
                     {topic.title}
                 </li>
             )
@@ -84,8 +88,10 @@ class User extends Component {
                     <button name = 'delete' onClick = {this.deleteUser} >Delete Your Profile</button><br/>
                 </label>
                 <label>
-                    {/* <h3>All User Topics: <TopicsList topics = {this.state.topics} /></h3> */}
-                    <h3>All User Topics: <ul><Link to={{pathname: '/user/topic'}}>{userTopicsList}</Link></ul></h3>
+                    <button name = 'logout'  >Log Out</button><br/>
+                </label>
+                <label>
+                    <h3>All User Topics: <Link to={{pathname: '/user/topic'}}>{userTopicsList}</Link></h3>
                 </label>
                 <label>
                     <h3><button onClick = {() => this.props.history.push('/user/newtopic')}>Add new Topics</button></h3>

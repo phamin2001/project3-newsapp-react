@@ -18,10 +18,10 @@ class Topic extends Component {
     }
 
     getTopic = async () => {
-        const idToFetch = this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId;
+        // const idToFetch = this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId;
 
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + idToFetch , {
+            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id , {
                 method:      'GET',
                 credentials: 'include'
             });

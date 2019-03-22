@@ -78,7 +78,8 @@ class App extends Component {
                        render                   = { (props) => ( <User {...props}
                        loggedInUsername         = {this.state.username} 
                        loggedInUserId           = {this.state.userId}
-                       handleCompleteUserInfo   = {this.handleCompleteUserInfo} /> )} 
+                       handleCompleteUserInfo   = {this.handleCompleteUserInfo}
+                       handleEditedTopic        = {this.handleEditedTopic} /> )} 
           />
           <Route exact path                   = '/user/edit'
                        render                 = { (props) => ( <EditUser {...props}

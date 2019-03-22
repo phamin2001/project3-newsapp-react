@@ -49,6 +49,7 @@ class EditTopic extends Component {
         return(
             <div>
                 <div><Link to='/user/topic'>Profile</Link></div>
+                
                 <form onSubmit={this.handleEditTopic}>
                     <h1>Edit Topic: </h1>
                     <label>
