@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }             from 'react-router-dom';
 
 class EditTopic extends Component {
     constructor() {
@@ -35,6 +36,7 @@ class EditTopic extends Component {
             }
 
             const parsedEditResponse = await editResponse.json();
+            this.props.handleEditedTopic(parsedEditResponse.updatedTopic);
             this.props.history.push('/user/topic');
 
         } catch (err) {
@@ -46,6 +48,7 @@ class EditTopic extends Component {
     render() {
         return(
             <div>
+                <div><Link to='/user/topic'>Profile</Link></div>
                 <form onSubmit={this.handleEditTopic}>
                     <h1>Edit Topic: </h1>
                     <label>

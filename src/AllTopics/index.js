@@ -38,8 +38,8 @@ class AllTopics extends Component {
 
     handleChange = (e) => {
         this.props.handleSelectedTopic(e.target.value);
-        this.props.history.push({
-                        pathname: '/user/newtopic'});
+        // this.props.history.push({
+        //                 pathname: '/user/newtopic'});
     }
 
     render(){

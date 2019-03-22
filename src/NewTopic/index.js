@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AllTopics            from '../AllTopics';
+import { Link }             from 'react-router-dom';
 
 
 class NewTopic extends Component {
@@ -7,30 +8,16 @@ class NewTopic extends Component {
         super();
 
         this.state = {
-            title:   '',
-            writer:  '',
-            date:    '',
-            topicId: ''
+            title:   'title',
+            writer:  'writer',
+            date:    ''
         }
     }
 
-    handleSelectedTopic = (id) => {
-        this.setState({
-            topicId: id
-        })
-    }
-
-    componentDidMount() {
-        // console.log('in componentDidlMount')
-        if(this.state.topicId) {
-            // console.log('after if')
-            this.getSelectedTopic();
-        }
-    }
-
-    getSelectedTopic = async () => {
+    handleSelectedTopic = async (id) => {
+    
         try {
-            const selectedTopicResponse = await fetch('http://localhost:9000/api/v1/topics/' + this.state.topicId, {
+            const selectedTopicResponse = await fetch('http://localhost:9000/api/v1/topics/' + id, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -40,7 +27,12 @@ class NewTopic extends Component {
             }
 
             const parsedSelectedTopicREsponse = await selectedTopicResponse.json();
-            console.log(parsedSelectedTopicREsponse, 'parsed topic in NewTopic')
+            this.setState({
+                title:  parsedSelectedTopicREsponse.topic.title,
+                writer: parsedSelectedTopicREsponse.topic.writer,
+                date:   parsedSelectedTopicREsponse.topic.date
+            })
+
             
         } catch (err) {
             console.log(err);
@@ -56,7 +48,7 @@ class NewTopic extends Component {
 
     handleNewTopicSubmit = async (e) => {
         e.preventDefault();
-
+        console.log(this.props.loggedInUserId, 'in handleNewTopic: loggedUseid')
         try {
             const newTopicResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/', {
                 method: 'POST',
@@ -72,7 +64,6 @@ class NewTopic extends Component {
             }
 
             const parsedNewTopicResponse = await newTopicResponse.json();
-            // console.log(parsedNewTopicResponse, 'parsed newTopic'); 
             this.props.history.push('/user');         
         
         } catch (err) {
@@ -82,12 +73,9 @@ class NewTopic extends Component {
     }
 
     render() {
-        // const id = this.props.location.state.topidId;
-        // console.log(this.props.location.state.topicId,'coming from alltopic')
-        console.log(this.state.topicId, 'topic Id in newtopic')
-
         return(
             <div>
+               <div><Link to='/user/'>Profile</Link></div>
                <div>
                     <h2>All topics:  <AllTopics handleSelectedTopic = {this.handleSelectedTopic}/></h2>
                </div>
@@ -95,15 +83,15 @@ class NewTopic extends Component {
                     <h1>New Topic</h1>
                     <label>
                         Title: 
-                        <input type='text' name='title' placeholder='title' onChange={this.handleInput}/>
+                        <input type='text' name='title' placeholder={this.state.title} onChange={this.handleInput}/>
                     </label>
                     <label>
                         Writer:
-                        <input type='text' name='writer' placeholder='writer' onChange={this.handleInput}/>
+                        <input type='text' name='writer' placeholder={this.state.writer} onChange={this.handleInput}/>
                     </label>
                     <label>
                         Date:
-                        <input type='date' name='date'  onChange={this.handleInput}/>
+                        <input type='date' name='date'  placeholder={this.state.date} onChange={this.handleInput}/>
                     </label>
                     <input type='Submit' />
                 </form><br/>

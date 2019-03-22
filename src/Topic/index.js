@@ -32,7 +32,7 @@ class Topic extends Component {
 
             const parsedTopicResponse = await response.json();
             // const parsedTopicResponse = await response.text();
-            console.log(parsedTopicResponse, 'parsed topic')
+            // console.log(parsedTopicResponse, 'parsed topic')
 
             this.setState({
                 title:  parsedTopicResponse.topic.title,
@@ -75,7 +75,7 @@ class Topic extends Component {
     render() {
         return(
             <div>
-                <div><Link to='/user/'>Profile</Link></div>
+                <div><Link to='/user/'>Topic</Link></div>
                 <h1>Topic: {this.state.title}</h1>
                 <label>
                     <h2>Writer: {this.state.writer}</h2>

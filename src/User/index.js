@@ -63,6 +63,15 @@ class User extends Component {
     }
 
     render() {  
+        const userTopicsList = this.state.topics.map((topic, i) => {
+            return (
+                <li value={topic._id}>
+                    {topic.title}
+                </li>
+            )
+        })
+
+
         return(
             <div>
                 <label>
@@ -75,7 +84,8 @@ class User extends Component {
                     <button name = 'delete' onClick = {this.deleteUser} >Delete Your Profile</button><br/>
                 </label>
                 <label>
-                    <h3>All User Topics: <TopicsList topics = {this.state.topics} /></h3>
+                    {/* <h3>All User Topics: <TopicsList topics = {this.state.topics} /></h3> */}
+                    <h3>All User Topics: <ul><Link to={{pathname: '/user/topic'}}>{userTopicsList}</Link></ul></h3>
                 </label>
                 <label>
                     <h3><button onClick = {() => this.props.history.push('/user/newtopic')}>Add new Topics</button></h3>

@@ -99,6 +99,7 @@ class App extends Component {
           <Route exact path              = '/user/edittopic'   
                        render            = { (props) => ( <EditTopic {...props}
                        editedTopic       = {this.state.editedTopic}
+                       handleEditedTopic = {this.handleEditedTopic}
                        loggedInUserId    = {this.state.userId}  /> )} 
           />
           <Route component={ My404 }/>
