@@ -7,9 +7,44 @@ class NewTopic extends Component {
         super();
 
         this.state = {
-            title:  '',
-            writer: '',
-            date:   ''
+            title:   '',
+            writer:  '',
+            date:    '',
+            topicId: ''
+        }
+    }
+
+    handleSelectedTopic = (id) => {
+        this.setState({
+            topicId: id
+        })
+    }
+
+    componentDidMount() {
+        // console.log('in componentDidlMount')
+        if(this.state.topicId) {
+            // console.log('after if')
+            this.getSelectedTopic();
+        }
+    }
+
+    getSelectedTopic = async () => {
+        try {
+            const selectedTopicResponse = await fetch('http://localhost:9000/api/v1/topics/' + this.state.topicId, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if(!selectedTopicResponse.ok) {
+                throw Error(selectedTopicResponse.statusText);
+            }
+
+            const parsedSelectedTopicREsponse = await selectedTopicResponse.json();
+            console.log(parsedSelectedTopicREsponse, 'parsed topic in NewTopic')
+            
+        } catch (err) {
+            console.log(err);
+            return err;
         }
     }
 
@@ -47,10 +82,14 @@ class NewTopic extends Component {
     }
 
     render() {
+        // const id = this.props.location.state.topidId;
+        // console.log(this.props.location.state.topicId,'coming from alltopic')
+        console.log(this.state.topicId, 'topic Id in newtopic')
+
         return(
             <div>
                <div>
-                    <h2>All topics:  <AllTopics /></h2>
+                    <h2>All topics:  <AllTopics handleSelectedTopic = {this.handleSelectedTopic}/></h2>
                </div>
                <form onSubmit={this.handleNewTopicSubmit}>
                     <h1>New Topic</h1>

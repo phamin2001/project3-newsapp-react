@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 class AllTopics extends Component {
     constructor() {
@@ -36,8 +37,9 @@ class AllTopics extends Component {
     }
 
     handleChange = (e) => {
-        console.log(e.target.value, 'in handlechange');
-        
+        this.props.handleSelectedTopic(e.target.value);
+        this.props.history.push({
+                        pathname: '/user/newtopic'});
     }
 
     render(){
@@ -60,4 +62,4 @@ class AllTopics extends Component {
     }
 }
 
-export default AllTopics;
+export default withRouter (AllTopics);

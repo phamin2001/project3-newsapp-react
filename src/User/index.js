@@ -70,7 +70,6 @@ class User extends Component {
                 </label><br/>
                 <label>
                     <button name = 'edit' onClick = {() => this.props.history.push('/user/edit')} >Edit Your Profile</button><br/>
-                    {/* <Link to='/user/edit'>Edit Your Profile</Link> */}
                 </label>
                 <label>
                     <button name = 'delete' onClick = {this.deleteUser} >Delete Your Profile</button><br/>
