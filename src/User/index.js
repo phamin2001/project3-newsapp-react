@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import TopicsList           from '../TopicsList';
 
 class User extends Component {
     constructor(props) {
@@ -62,6 +61,27 @@ class User extends Component {
         }
     }
 
+    logOutUser = async (e) => {
+        try {
+            const response = await fetch('http://localhost:9000/auths/logout', {
+                method:      'GET',
+                credentials: 'include'
+            });
+
+            if(!response.ok) {
+                throw Error(response.statusText);
+            }
+
+            const parsedResponse = await response.json();
+            if(parsedResponse.status === 200) {
+                this.props.history.push('/');
+            }    
+        } catch (err) {
+            console.log(err);
+            return err;            
+        }
+    }
+
     handleCurrentTopic = (selectedTopic) => {
         this.props.handleEditedTopic(selectedTopic);
     }
@@ -75,20 +95,19 @@ class User extends Component {
             )
         })
 
-
         return(
             <div>
                 <label>
                     <h2>Welcome: {this.props.loggedInUsername}</h2>
                 </label><br/>
                 <label>
-                    <button name = 'edit' onClick = {() => this.props.history.push('/user/edit')} >Edit Your Profile</button><br/>
+                    <button name = 'edit'   onClick = {() => this.props.history.push('/user/edit')} >Edit Your Profile</button><br/>
                 </label>
                 <label>
                     <button name = 'delete' onClick = {this.deleteUser} >Delete Your Profile</button><br/>
                 </label>
                 <label>
-                    <button name = 'logout'  >Log Out</button><br/>
+                    <button name = 'logout' onClick = {this.logOutUser} >Log Out</button><br/>
                 </label>
                 <label>
                     <h3>All User Topics: <Link to={{pathname: '/user/topic'}}>{userTopicsList}</Link></h3>
