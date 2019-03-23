@@ -9,6 +9,7 @@ import Registration          from './Registration';
 import NewTopic              from './NewTopic';
 import Topic                 from './Topic';
 import EditTopic             from './EditTopic';
+import News                  from './News';
 
 const My404 = () => {
   return (
@@ -28,7 +29,8 @@ class App extends Component {
       completeUserInfo: {
         loggedInUsername:   '',
         loggedInEmail:      '',
-        loggedInDiplayName: ''
+        loggedInDiplayName: '',
+        loggedInTopics:     []
       },
       editedTopic: {}
     }
@@ -50,7 +52,8 @@ class App extends Component {
       completeUserInfo: {
         loggedInUsername:    userParsed.username,
         loggedInEmail:       userParsed.userEmail,
-        logeedInDisplayName: userParsed.userDisplayName
+        logeedInDisplayName: userParsed.userDisplayName,
+        loggedInTopics:      userParsed.userTopics
       }
     });
   }
@@ -65,21 +68,21 @@ class App extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path        = '/'         component     = { AuthenticationGateway } />
-          <Route exact path        = '/login'    
-                       render      = { (props) => ( <Login {...props}
-                       handleLogin = {this.handleLogin} />)} 
+          <Route exact path                   = '/'         component     = { AuthenticationGateway } />
+          <Route exact path                   = '/login'    
+                       render                 = { (props) => ( <Login {...props}
+                       handleLogin            = {this.handleLogin} />)} 
           />
-          <Route exant path        = '/register'
-                       render      = { (props) => ( <Registration {...props}
-                       handleLogin = {this.handleLogin} /> )} 
+          <Route exant path                   = '/register'
+                       render                 = { (props) => ( <Registration {...props}
+                       handleLogin            = {this.handleLogin} /> )} 
           />
-          <Route exact path                     = '/user'
-                       render                   = { (props) => ( <User {...props}
-                       loggedInUsername         = {this.state.username} 
-                       loggedInUserId           = {this.state.userId}
-                       handleCompleteUserInfo   = {this.handleCompleteUserInfo}
-                       handleEditedTopic        = {this.handleEditedTopic} /> )} 
+          <Route exact path                   = '/user'
+                       render                 = { (props) => ( <User {...props}
+                       loggedInUsername       = {this.state.username} 
+                       loggedInUserId         = {this.state.userId}
+                       handleCompleteUserInfo = {this.handleCompleteUserInfo}
+                       handleEditedTopic      = {this.handleEditedTopic} /> )} 
           />
           <Route exact path                   = '/user/edit'
                        render                 = { (props) => ( <EditUser {...props}
@@ -87,21 +90,26 @@ class App extends Component {
                        completeUserInfo       = {this.state.completeUserInfo} 
                        handleCompleteUserInfo = {this.handleCompleteUserInfo}  /> )}
           />
-          <Route exact path           = '/user/newtopic'
-                       render         = { (props) => ( <NewTopic {...props}
-                       loggedInUserId = {this.state.userId} /> )} 
+          <Route exact path                   = '/user/newtopic'
+                       render                 = { (props) => ( <NewTopic {...props}
+                       loggedInUserId         = {this.state.userId} /> )} 
           />
-          <Route exact path              = '/user/topic'       
-                       render            = { (props) => ( <Topic {...props}
-                       handleEditedTopic = {this.handleEditedTopic}
-                       editedTopic       = {this.state.editedTopic}
-                       loggedInUserId    = {this.state.userId} /> )} 
+          <Route exact path                   = '/user/topic'       
+                       render                 = { (props) => ( <Topic {...props}
+                       handleEditedTopic      = {this.handleEditedTopic}
+                       editedTopic            = {this.state.editedTopic}
+                       loggedInUserId         = {this.state.userId} /> )} 
           />
-          <Route exact path              = '/user/edittopic'   
-                       render            = { (props) => ( <EditTopic {...props}
-                       editedTopic       = {this.state.editedTopic}
-                       handleEditedTopic = {this.handleEditedTopic}
-                       loggedInUserId    = {this.state.userId}  /> )} 
+          <Route exact path                   = '/user/edittopic'   
+                       render                 = { (props) => ( <EditTopic {...props}
+                       editedTopic            = {this.state.editedTopic}
+                       handleEditedTopic      = {this.handleEditedTopic}
+                       loggedInUserId         = {this.state.userId}  /> )} 
+          />
+          <Route exact path                   = '/user/news' 
+                       render                 = { (props) => ( <News {...props}
+                       loggedInUserId         = {this.state.userId}
+                       completeUserInfo       = {this.state.completeUserInfo}  /> )} 
           />
           <Route component={ My404 }/>
         </Switch>

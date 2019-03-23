@@ -115,6 +115,9 @@ class User extends Component {
                 <label>
                     <h3><button onClick = {() => this.props.history.push('/user/newtopic')}>Add new Topics</button></h3>
                 </label>
+                <div>
+                    <h2><button onClick = {() => this.props.history.push('/user/news')}>Check Your News</button></h2>
+                </div>
             </div>
         )
     }
