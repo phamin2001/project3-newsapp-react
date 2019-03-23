@@ -48,7 +48,7 @@ class EditTopic extends Component {
     render() {
         return(
             <div>
-                <div><Link to='/user/topic'>Profile</Link></div>
+                <div><Link to='/user/topic'>Topic</Link></div>
                 
                 <form onSubmit={this.handleEditTopic}>
                     <h1>Edit Topic: </h1>

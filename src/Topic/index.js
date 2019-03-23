@@ -75,7 +75,7 @@ class Topic extends Component {
     render() {
         return(
             <div>
-                <div><Link to='/user/'>Topic</Link></div>
+                <div><Link to='/user/'>Profile</Link></div>
                 <h1>Topic: {this.state.title}</h1>
                 <label>
                     <h2>Writer: {this.state.writer}</h2>

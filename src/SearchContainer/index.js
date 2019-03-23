@@ -3,7 +3,6 @@ import React from 'react';
 const SearchContainer = (props) => {
 
     const newsLists = props.searchNews.response.docs.map((doc, i) => {
-        console.log(doc, 'in map')
         return(
             <ui key = {i}>
                 <section>

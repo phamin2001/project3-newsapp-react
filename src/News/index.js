@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchContainer      from '../SearchContainer';
+import { Link }             from 'react-router-dom';
 
 class News extends Component {
     constructor() {
@@ -30,7 +31,7 @@ class News extends Component {
             }
 
             const parsedResponse = await response.json();
-            console.log(parsedResponse, 'parsed ' )
+            // console.log(parsedResponse, 'parsed ' )
             this.setState({
                 searchNews: parsedResponse,
                 loading: false
@@ -42,23 +43,48 @@ class News extends Component {
         }
     }
 
+    handleChange = async (e) => {
+        try {
+            const response = await fetch('https://api.nytimes.com/svc/search/v2//articlesearch.json?q=' + 
+                                        e.target.value + '&api-key=Wy2FfqYlhmo4JjtnGKDd5OAHUKE7Jwjf');
+            
+            if(!response.ok) {
+                throw Error(response.statusText);
+            }
+
+            const parsedResponse = await response.json();
+            // console.log(parsedResponse, 'parsed ' )
+            this.setState({
+                searchNews: parsedResponse,
+                loading: false
+            })
+            
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
 
     render(){ 
         const userTopics = this.props.completeUserInfo.loggedInTopics.map((topic, i) => {
             return (
-                <li>
+                <option value={topic.title}>
                     {topic.title}
-                </li>
+                </option>
             )
         })
 
-        console.log(this.state.searchNews, 'in news')
         return(
             <div>
-                <div>
-                    <h1>Your Favorite Topics:</h1>
-                    {userTopics}
-                </div>
+                <div><Link to='/user/'>Profile</Link></div>
+                
+                <label>
+                    <h1>Choose One Of Your Favorite Topics:</h1>
+                    <select onChange={this.handleChange}>
+                        <option>Please Select</option>
+                        {userTopics}
+                    </select>
+                </label>
 
                 <div>
                     <form onSubmit = {this.handleSubmit} >
