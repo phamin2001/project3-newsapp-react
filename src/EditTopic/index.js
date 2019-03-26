@@ -22,7 +22,8 @@ class EditTopic extends Component {
         e.preventDefault();
 
         try {
-            const editResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id, {
+            const editResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id, {
+                // 'http://localhost:9000/
                 method:      'PUT',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),

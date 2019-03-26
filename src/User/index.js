@@ -16,7 +16,8 @@ class User extends Component {
 
     getUserTopics = async () => {
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId, {
+                // 'http://localhost:9000/
                 method:      'GET',
                 credentials: 'include'
             });
@@ -42,7 +43,8 @@ class User extends Component {
             let verify = window.confirm('Are you sure!!');
 
             if(verify) {
-                const deleteUser = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId, {
+                const deleteUser = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId, {
+                    // 'http://localhost:9000/
                     method:  'DELETE',
                     credentials: 'include' 
                  });
@@ -63,7 +65,8 @@ class User extends Component {
 
     logOutUser = async (e) => {
         try {
-            const response = await fetch('http://localhost:9000/auths/logout', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}` + 'auths/logout', {
+                // 'http://localhost:9000/
                 method:      'GET',
                 credentials: 'include'
             });

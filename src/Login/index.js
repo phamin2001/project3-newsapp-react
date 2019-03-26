@@ -21,8 +21,10 @@ class Login extends Component {
         e.preventDefault();
 
         try {
-            const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND}`, {
+            const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND}`+ 'auths/login', {
                 // 'http://localhost:9000/auths/login'
+                // `${process.env.REACT_APP_BACKEND}`
+                // 'https://phamin2001-newsapp.herokuapp.com/auths/login'
                 method:      'POST',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),

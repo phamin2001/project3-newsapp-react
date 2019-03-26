@@ -22,7 +22,8 @@ class Edit extends Component {
         e.preventDefault();
 
         try {
-            const editResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId, {
+            const editResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId, {
+                // 'http://localhost:9000/
                 method:      'PUT',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),

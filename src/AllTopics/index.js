@@ -16,7 +16,8 @@ class AllTopics extends Component {
 
     getAllTopics = async () => {
         try {
-            const response = await fetch('http://localhost:9000/api/v1/topics/', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}` + 'api/v1/topics/', {
+                // http://localhost:9000/
                 method:      'GET',
                 credentials: 'include',
             });

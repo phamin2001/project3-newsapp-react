@@ -17,7 +17,8 @@ class NewTopic extends Component {
     handleSelectedTopic = async (id) => {
     
         try {
-            const selectedTopicResponse = await fetch('http://localhost:9000/api/v1/topics/' + id, {
+            const selectedTopicResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'api/v1/topics/' + id, {
+                // 'http://localhost:9000/
                 method: 'GET',
                 credentials: 'include'
             });
@@ -48,9 +49,10 @@ class NewTopic extends Component {
 
     handleNewTopicSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.props.loggedInUserId, 'in handleNewTopic: loggedUseid')
+        // console.log(this.props.loggedInUserId, 'in handleNewTopic: loggedUseid')
         try {
-            const newTopicResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/', {
+            const newTopicResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId + '/topics/', {
+                // 'http://localhost:9000/
                 method: 'POST',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),

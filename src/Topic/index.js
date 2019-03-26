@@ -21,7 +21,8 @@ class Topic extends Component {
         // const idToFetch = this.props.editedTopic._id ? this.props.editedTopic._id : this.props.location.state.topicId;
 
         try {
-            const response = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id , {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId + '/topics/' + this.props.editedTopic._id , {
+                // 'http://localhost:9000/
                 method:      'GET',
                 credentials: 'include'
             });
@@ -51,7 +52,8 @@ class Topic extends Component {
 
     deleteTopic = async (e) => {
         try {
-            const deletedTopicResponse = await fetch('http://localhost:9000/users/' + this.props.loggedInUserId + '/topics/' + this.state.id, {
+            const deletedTopicResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/' + this.props.loggedInUserId + '/topics/' + this.state.id, {
+                // 'http://localhost:9000/
                 method:      'DELETE',
                 credentials: 'include'
             })

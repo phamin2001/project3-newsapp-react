@@ -22,7 +22,8 @@ class Registration extends Component {
         e.preventDefault();
 
         try {
-            const registerResponse = await fetch('http://localhost:9000/users/', {
+            const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND}` + 'users/', {
+                // 'http://localhost:9000/
                 method:      'POST',
                 credentials: 'include',
                 body:        JSON.stringify(this.state),
