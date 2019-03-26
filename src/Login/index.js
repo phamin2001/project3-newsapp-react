@@ -44,7 +44,8 @@ class Login extends Component {
                 this.props.history.push('/user');
             } else {
                 alert('Something wrong, try again.');
-                window.location.reload();
+                // window.location.reload();
+                this.props.history.push('/login');
             }
         } catch (err) {
             console.log(err);

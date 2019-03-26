@@ -55,7 +55,7 @@ class AllTopics extends Component {
         return(
             <div>
                 <select onChange={this.handleChange}>
-                    Watson.isConnected()
+                    <option>Please Select</option>
                     {allTopicsList}
                 </select>
             </div>
